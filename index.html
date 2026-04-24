@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalcSuite — Multi-Tool Calculator</title>
+  <meta name="description" content="A sleek multi-tool calculator suite with unit converters, BMI, tip, discount, and age calculators." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <div class="background-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="3"/><line x1="8" y1="7" x2="16" y2="7"/><circle cx="9" cy="12" r="0.8" fill="currentColor"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/><circle cx="15" cy="12" r="0.8" fill="currentColor"/><circle cx="9" cy="16" r="0.8" fill="currentColor"/><circle cx="12" cy="16" r="0.8" fill="currentColor"/><circle cx="15" cy="16" r="0.8" fill="currentColor"/></svg>
+        </div>
+        <span class="sidebar-title">CalcSuite</span>
+      </div>
+
+      <!-- Favourites dropdown -->
+      <div class="fav-section" id="fav-section">
+        <button class="fav-toggle" id="fav-toggle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>Favourites</span>
+          <svg class="fav-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="fav-list" id="fav-list">
+          <div class="fav-empty" id="fav-empty">Click ☆ on any calculator to add it here</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <button class="nav-item active" data-panel="basic" id="nav-basic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="10" y2="16"/><line x1="14" y1="16" x2="16" y2="16"/></svg>
+          <span>Basic Calculator</span>
+          <span class="nav-star" data-fav="basic" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="temperature" id="nav-temperature">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/></svg>
+          <span>Temperature</span>
+          <span class="nav-star" data-fav="temperature" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="length" id="nav-length">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M6 8v8M18 8v8M12 10v4"/></svg>
+          <span>Length</span>
+          <span class="nav-star" data-fav="length" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="weight" id="nav-weight">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3a4 4 0 00-4 4h8a4 4 0 00-4-4z"/><path d="M5 7l-1 13a2 2 0 002 2h12a2 2 0 002-2L19 7H5z"/></svg>
+          <span>Weight</span>
+          <span class="nav-star" data-fav="weight" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="bmi" id="nav-bmi">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="5" r="3"/><path d="M12 8v8M8 12h8M9 21l3-5 3 5"/></svg>
+          <span>BMI Calculator</span>
+          <span class="nav-star" data-fav="bmi" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="speed" id="nav-speed">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 12l4-4"/><path d="M12 6v2"/></svg>
+          <span>Speed</span>
+          <span class="nav-star" data-fav="speed" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="area" id="nav-area">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+          <span>Area</span>
+          <span class="nav-star" data-fav="area" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="discount" id="nav-discount">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+          <span>Discount</span>
+          <span class="nav-star" data-fav="discount" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="age" id="nav-age">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>Age Calculator</span>
+          <span class="nav-star" data-fav="age" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="fuelcost" id="nav-fuelcost">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 22V6a2 2 0 012-2h8a2 2 0 012 2v16"/><path d="M15 10h2a2 2 0 012 2v2a2 2 0 01-2 2h-2"/><path d="M19 14v4"/><line x1="7" y1="10" x2="11" y2="10"/><line x1="7" y1="14" x2="11" y2="14"/></svg>
+          <span>Fuel Cost</span>
+          <span class="nav-star" data-fav="fuelcost" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="fueleff" id="nav-fueleff">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 6v6l4 2"/></svg>
+          <span>Fuel Efficiency</span>
+          <span class="nav-star" data-fav="fueleff" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="grade" id="nav-grade">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          <span>Grade Average</span>
+          <span class="nav-star" data-fav="grade" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="currency" id="nav-currency">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          <span>Currency</span>
+          <span class="nav-star" data-fav="currency" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="worldclock" id="nav-worldclock">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          <span>World Clock</span>
+          <span class="nav-star" data-fav="worldclock" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="base" id="nav-base">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          <span>Base Converter</span>
+          <span class="nav-star" data-fav="base" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="cp" id="nav-cp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span>Competitive Prog.</span>
+          <span class="nav-star" data-fav="cp" title="Add to favourites">☆</span>
+        </button>
+        <button class="nav-item" data-panel="allunits" id="nav-allunits">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 6v12M16 6v12"/></svg>
+          <span>All Units</span>
+          <span class="nav-star" data-fav="allunits" title="Add to favourites">☆</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Mobile hamburger -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle sidebar">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+
+      <!-- ====== BASIC CALCULATOR ====== -->
+      <section class="panel active" id="panel-basic" aria-label="Basic Calculator">
+        <div class="calculator-container" style="max-width: 750px; width: 100%;">
+          <div class="display-container basic-display" style="height: 180px; overflow-y: auto; align-items: flex-end; justify-content: flex-start; flex-direction: column-reverse; padding: 12px 20px;">
+            <div class="display-current" id="display-current" style="word-break: break-all; width: 100%; text-align: right;">0</div>
+            <div class="display-expression" id="display-expression" style="margin-top: 8px;"></div>
+          </div>
+          
+          <div style="display: flex; gap: 16px; margin-top: 16px;">
+            <!-- Left side: Scientific Functions -->
+            <div class="basic-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); align-content: start; flex: 1.35; gap: 10px;">
+              <button class="btn btn-utility" data-action="basic-func" data-value="sin">sin</button>
+              <button class="btn btn-utility" data-action="basic-func" data-value="cos">cos</button>
+              <button class="btn btn-utility" data-action="basic-char" data-value="pi">π</button>
+
+              <button class="btn btn-utility" data-action="basic-func" data-value="log10">log</button>
+              <button class="btn btn-utility" data-action="basic-func" data-value="log">ln</button>
+              <button class="btn btn-utility" data-action="basic-func" data-value="log2">log2</button>
+
+              <button class="btn btn-utility" data-action="basic-func" data-value="square">x²</button>
+              <button class="btn btn-utility" data-action="basic-func" data-value="sqrt">√</button>
+              <button class="btn btn-operator" data-action="basic-op" data-value="^">^</button>
+
+              <button class="btn btn-utility" data-action="basic-char" data-value="(">(</button>
+              <button class="btn btn-utility" data-action="basic-char" data-value=")">)</button>
+              <button class="btn btn-utility" data-action="basic-char" data-value="e">e</button>
+            </div>
+            
+            <!-- Right side: Keypad -->
+            <div class="buttons-grid basic-grid" style="flex: 1.65; gap: 10px;">
+              <button class="btn btn-utility" data-action="basic-clear">AC</button>
+              <button class="btn btn-utility" data-action="basic-del">DEL</button>
+              <button class="btn btn-operator" data-action="basic-op" data-value="%">%</button>
+              <button class="btn btn-operator" data-action="basic-op" data-value="/">÷</button>
+
+              <button class="btn btn-number" data-action="basic-char" data-value="7">7</button>
+              <button class="btn btn-number" data-action="basic-char" data-value="8">8</button>
+              <button class="btn btn-number" data-action="basic-char" data-value="9">9</button>
+              <button class="btn btn-operator" data-action="basic-op" data-value="*">×</button>
+
+              <button class="btn btn-number" data-action="basic-char" data-value="4">4</button>
+              <button class="btn btn-number" data-action="basic-char" data-value="5">5</button>
+              <button class="btn btn-number" data-action="basic-char" data-value="6">6</button>
+              <button class="btn btn-operator" data-action="basic-op" data-value="-">−</button>
+
+              <button class="btn btn-number" data-action="basic-char" data-value="1">1</button>
+              <button class="btn btn-number" data-action="basic-char" data-value="2">2</button>
+              <button class="btn btn-number" data-action="basic-char" data-value="3">3</button>
+              <button class="btn btn-operator" data-action="basic-op" data-value="+">+</button>
+
+              <button class="btn btn-number btn-zero" data-action="basic-char" data-value="0" style="grid-column: span 2;">0</button>
+              <button class="btn btn-number" data-action="basic-char" data-value=".">.</button>
+              <button class="btn btn-equals" data-action="basic-equals" style="background: var(--bg-equals); color: var(--text-operator); font-size: 1.4rem;">=</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== TEMPERATURE ====== -->
+      <section class="panel" id="panel-temperature" aria-label="Temperature Converter">
+        <div class="converter-card">
+          <h1 class="converter-title">Temperature Converter</h1>
+          <div class="converter-body">
+            <div class="input-group">
+              <label for="temp-input">Value</label>
+              <input type="number" id="temp-input" class="converter-input" placeholder="Enter value" value="0" />
+            </div>
+            <div class="input-group">
+              <label for="temp-from">From</label>
+              <select id="temp-from" class="converter-select">
+                <option value="C">Celsius (°C)</option>
+                <option value="F">Fahrenheit (°F)</option>
+                <option value="K">Kelvin (K)</option>
+              </select>
+            </div>
+            <button class="swap-btn" id="temp-swap" aria-label="Swap units">⇅</button>
+            <div class="input-group">
+              <label for="temp-to">To</label>
+              <select id="temp-to" class="converter-select">
+                <option value="F" selected>Fahrenheit (°F)</option>
+                <option value="C">Celsius (°C)</option>
+                <option value="K">Kelvin (K)</option>
+              </select>
+            </div>
+            <div class="result-display" id="temp-result">32 °F</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== LENGTH ====== -->
+      <section class="panel" id="panel-length" aria-label="Length Converter">
+        <div class="converter-card">
+          <h1 class="converter-title">Length Converter</h1>
+          <div class="converter-body">
+            <div class="input-group">
+              <label for="length-input">Value</label>
+              <input type="number" id="length-input" class="converter-input" placeholder="Enter value" value="1" />
+            </div>
+            <div class="input-group">
+              <label for="length-from">From</label>
+              <select id="length-from" class="converter-select">
+                <option value="m">Meter (m)</option>
+                <option value="km">Kilometer (km)</option>
+                <option value="cm">Centimeter (cm)</option>
+                <option value="mm">Millimeter (mm)</option>
+                <option value="mi">Mile (mi)</option>
+                <option value="ft">Foot (ft)</option>
+                <option value="in">Inch (in)</option>
+              </select>
+            </div>
+            <button class="swap-btn" id="length-swap" aria-label="Swap units">⇅</button>
+            <div class="input-group">
+              <label for="length-to">To</label>
+              <select id="length-to" class="converter-select">
+                <option value="ft" selected>Foot (ft)</option>
+                <option value="m">Meter (m)</option>
+                <option value="km">Kilometer (km)</option>
+                <option value="cm">Centimeter (cm)</option>
+                <option value="mm">Millimeter (mm)</option>
+                <option value="mi">Mile (mi)</option>
+                <option value="in">Inch (in)</option>
+              </select>
+            </div>
+            <div class="result-display" id="length-result">3.28084 ft</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== WEIGHT ====== -->
+      <section class="panel" id="panel-weight" aria-label="Weight Converter">
+        <div class="converter-card">
+          <h1 class="converter-title">Weight Converter</h1>
+          <div class="converter-body">
+            <div class="input-group">
+              <label for="weight-input">Value</label>
+              <input type="number" id="weight-input" class="converter-input" placeholder="Enter value" value="1" />
+            </div>
+            <div class="input-group">
+              <label for="weight-from">From</label>
+              <select id="weight-from" class="converter-select">
+                <option value="kg">Kilogram (kg)</option>
+                <option value="g">Gram (g)</option>
+                <option value="lb">Pound (lb)</option>
+                <option value="oz">Ounce (oz)</option>
+                <option value="ton">Metric Ton (t)</option>
+              </select>
+            </div>
+            <button class="swap-btn" id="weight-swap" aria-label="Swap units">⇅</button>
+            <div class="input-group">
+              <label for="weight-to">To</label>
+              <select id="weight-to" class="converter-select">
+                <option value="lb" selected>Pound (lb)</option>
+                <option value="kg">Kilogram (kg)</option>
+                <option value="g">Gram (g)</option>
+                <option value="oz">Ounce (oz)</option>
+                <option value="ton">Metric Ton (t)</option>
+              </select>
+            </div>
+            <div class="result-display" id="weight-result">2.20462 lb</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== BMI ====== -->
+      <section class="panel" id="panel-bmi" aria-label="BMI Calculator">
+        <div class="converter-card">
+          <h1 class="converter-title">BMI Calculator</h1>
+          <div class="converter-body bmi-body">
+            <div class="input-group">
+              <label for="bmi-height">Height (cm)</label>
+              <input type="number" id="bmi-height" class="converter-input" placeholder="e.g. 175" value="175" />
+            </div>
+            <div class="input-group">
+              <label for="bmi-weight">Weight (kg)</label>
+              <input type="number" id="bmi-weight" class="converter-input" placeholder="e.g. 70" value="70" />
+            </div>
+            <div class="result-display" id="bmi-result">
+              <span class="bmi-value">22.9</span>
+              <span class="bmi-category normal">Normal weight</span>
+            </div>
+            <div class="bmi-scale">
+              <div class="bmi-bar"><div class="bmi-marker" id="bmi-marker" style="left:38%"></div></div>
+              <div class="bmi-labels">
+                <span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== SPEED ====== -->
+      <section class="panel" id="panel-speed" aria-label="Speed Converter">
+        <div class="converter-card">
+          <h1 class="converter-title">Speed Converter</h1>
+          <div class="converter-body">
+            <div class="input-group">
+              <label for="speed-input">Value</label>
+              <input type="number" id="speed-input" class="converter-input" placeholder="Enter value" value="100" />
+            </div>
+            <div class="input-group">
+              <label for="speed-from">From</label>
+              <select id="speed-from" class="converter-select">
+                <option value="kmh">km/h</option>
+                <option value="mph">mph</option>
+                <option value="ms">m/s</option>
+                <option value="knots">Knots</option>
+              </select>
+            </div>
+            <button class="swap-btn" id="speed-swap" aria-label="Swap units">⇅</button>
+            <div class="input-group">
+              <label for="speed-to">To</label>
+              <select id="speed-to" class="converter-select">
+                <option value="mph" selected>mph</option>
+                <option value="kmh">km/h</option>
+                <option value="ms">m/s</option>
+                <option value="knots">Knots</option>
+              </select>
+            </div>
+            <div class="result-display" id="speed-result">62.1371 mph</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== AREA ====== -->
+      <section class="panel" id="panel-area" aria-label="Area Converter">
+        <div class="converter-card">
+          <h1 class="converter-title">Area Converter</h1>
+          <div class="converter-body">
+            <div class="input-group">
+              <label for="area-input">Value</label>
+              <input type="number" id="area-input" class="converter-input" placeholder="Enter value" value="1" />
+            </div>
+            <div class="input-group">
+              <label for="area-from">From</label>
+              <select id="area-from" class="converter-select">
+                <option value="m2">Square Meter (m²)</option>
+                <option value="km2">Square Kilometer (km²)</option>
+                <option value="ft2">Square Foot (ft²)</option>
+                <option value="acre">Acre</option>
+                <option value="hectare">Hectare</option>
+              </select>
+            </div>
+            <button class="swap-btn" id="area-swap" aria-label="Swap units">⇅</button>
+            <div class="input-group">
+              <label for="area-to">To</label>
+              <select id="area-to" class="converter-select">
+                <option value="ft2" selected>Square Foot (ft²)</option>
+                <option value="m2">Square Meter (m²)</option>
+                <option value="km2">Square Kilometer (km²)</option>
+                <option value="acre">Acre</option>
+                <option value="hectare">Hectare</option>
+              </select>
+            </div>
+            <div class="result-display" id="area-result">10.7639 ft²</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== DISCOUNT ====== -->
+      <section class="panel" id="panel-discount" aria-label="Discount Calculator">
+        <div class="converter-card">
+          <h1 class="converter-title">Discount Calculator</h1>
+          <div class="converter-body bmi-body">
+            <div class="input-group">
+              <label for="discount-price">Original Price</label>
+              <input type="number" id="discount-price" class="converter-input" placeholder="e.g. 100" value="100" />
+            </div>
+            <div class="input-group">
+              <label for="discount-percent">Discount (%)</label>
+              <input type="number" id="discount-percent" class="converter-input" placeholder="e.g. 20" value="20" min="0" max="100" />
+            </div>
+            <div class="result-display discount-result" id="discount-result">
+              <div class="discount-row"><span class="discount-label">You Save</span><span class="discount-val" id="discount-savings">$20.00</span></div>
+              <div class="discount-row final"><span class="discount-label">Final Price</span><span class="discount-val" id="discount-final">$80.00</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== AGE ====== -->
+      <section class="panel" id="panel-age" aria-label="Age Calculator">
+        <div class="converter-card">
+          <h1 class="converter-title">Age Calculator</h1>
+          <div class="converter-body bmi-body">
+            <div class="input-group">
+              <label>Date of Birth (DD / MM / YYYY)</label>
+              <div class="age-dmy-inputs">
+                <div class="age-dmy-field">
+                  <input type="number" id="age-day" class="converter-input" placeholder="DD" min="1" max="31" value="1" />
+                  <span class="age-dmy-label">Day</span>
+                </div>
+                <span class="age-dmy-sep">/</span>
+                <div class="age-dmy-field">
+                  <input type="number" id="age-month" class="converter-input" placeholder="MM" min="1" max="12" value="1" />
+                  <span class="age-dmy-label">Month</span>
+                </div>
+                <span class="age-dmy-sep">/</span>
+                <div class="age-dmy-field">
+                  <input type="number" id="age-year" class="converter-input" placeholder="YYYY" min="1900" max="2099" value="2000" />
+                  <span class="age-dmy-label">Year</span>
+                </div>
+              </div>
+            </div>
+            <div class="result-display age-result" id="age-result">
+              <div class="age-cards">
+                <div class="age-card"><span class="age-num" id="age-years">25</span><span class="age-unit">Years</span></div>
+                <div class="age-card"><span class="age-num" id="age-months">3</span><span class="age-unit">Months</span></div>
+                <div class="age-card"><span class="age-num" id="age-days">23</span><span class="age-unit">Days</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== FUEL COST ====== -->
+      <section class="panel" id="panel-fuelcost" aria-label="Fuel Cost Calculator">
+        <div class="converter-card">
+          <h1 class="converter-title">Fuel Cost Calculator</h1>
+          <div class="converter-body bmi-body">
+            <div class="input-group">
+              <label for="fc-distance">Distance (km)</label>
+              <input type="number" id="fc-distance" class="converter-input" placeholder="e.g. 500" value="500" />
+            </div>
+            <div class="input-group">
+              <label for="fc-efficiency">Fuel Efficiency (km/L)</label>
+              <input type="number" id="fc-efficiency" class="converter-input" placeholder="e.g. 12" value="12" />
+            </div>
+            <div class="input-group">
+              <label for="fc-price">Fuel Price per Litre</label>
+              <input type="number" id="fc-price" class="converter-input" placeholder="e.g. 1.50" value="1.50" step="0.01" />
+            </div>
+            <div class="result-display discount-result" id="fc-result">
+              <div class="discount-row"><span class="discount-label">Fuel Needed</span><span class="discount-val" id="fc-litres">41.67 L</span></div>
+              <div class="discount-row final"><span class="discount-label">Total Cost</span><span class="discount-val" id="fc-cost">$62.50</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== FUEL EFFICIENCY ====== -->
+      <section class="panel" id="panel-fueleff" aria-label="Fuel Efficiency Calculator">
+        <div class="converter-card">
+          <h1 class="converter-title">Fuel Efficiency Calculator</h1>
+          <div class="converter-body bmi-body">
+            <div class="input-group">
+              <label for="fe-distance">Distance Traveled (km)</label>
+              <input type="number" id="fe-distance" class="converter-input" placeholder="e.g. 450" value="450" />
+            </div>
+            <div class="input-group">
+              <label for="fe-fuel">Fuel Consumed (Litres)</label>
+              <input type="number" id="fe-fuel" class="converter-input" placeholder="e.g. 40" value="40" />
+            </div>
+            <div class="result-display discount-result" id="fe-result">
+              <div class="discount-row"><span class="discount-label">km per Litre</span><span class="discount-val" id="fe-kml">11.25</span></div>
+              <div class="discount-row"><span class="discount-label">L / 100 km</span><span class="discount-val" id="fe-l100">8.89</span></div>
+              <div class="discount-row final"><span class="discount-label">Miles per Gallon</span><span class="discount-val" id="fe-mpg">26.47</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== GRADE AVERAGE ====== -->
+      <section class="panel" id="panel-grade" aria-label="Grade Average Calculator">
+        <div class="converter-card converter-card-wide">
+          <h1 class="converter-title">Grade Average (GPA) Calculator</h1>
+          <div class="converter-body bmi-body">
+            <div class="grade-table-wrap">
+              <div class="grade-header">
+                <span class="grade-col-label">Subject</span>
+                <span class="grade-col-label">Credits</span>
+                <span class="grade-col-label">GPA (1-10)</span>
+                <span class="grade-col-label"></span>
+              </div>
+              <div id="grade-rows">
+                <div class="grade-row">
+                  <input type="text" class="converter-input grade-subject" placeholder="Subject" value="Subject 1" />
+                  <input type="number" class="converter-input grade-credits" placeholder="Cr" value="4" min="1" />
+                  <input type="number" class="converter-input grade-gpa" placeholder="GPA" value="8" min="1" max="10" step="0.1" />
+                  <button class="grade-remove" aria-label="Remove row">×</button>
+                </div>
+              </div>
+              <button class="grade-add-btn" id="grade-add">+ Add Subject</button>
+            </div>
+            <div class="result-display" id="grade-result">
+              <div class="grade-result-inner">
+                <span class="grade-avg-label">Weighted GPA</span>
+                <span class="grade-avg-value" id="grade-avg">8.00</span>
+                <span class="grade-credits-total" id="grade-total-credits">Total Credits: 4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== CURRENCY CONVERTER ====== -->
+      <section class="panel" id="panel-currency" aria-label="Currency Converter">
+        <div class="converter-card">
+          <h1 class="converter-title">Currency Converter</h1>
+          <div class="converter-body">
+            <div class="currency-status" id="currency-status">
+              <span class="currency-dot"></span>
+              <span id="currency-status-text">Loading rates…</span>
+            </div>
+            <div class="input-group">
+              <label for="currency-amount">Amount</label>
+              <input type="number" id="currency-amount" class="converter-input" placeholder="Enter amount" value="1" min="0" />
+            </div>
+            <div class="input-group">
+              <label for="currency-from">From</label>
+              <select id="currency-from" class="converter-select"></select>
+            </div>
+            <button class="swap-btn" id="currency-swap" aria-label="Swap currencies">⇅</button>
+            <div class="input-group">
+              <label for="currency-to">To</label>
+              <select id="currency-to" class="converter-select"></select>
+            </div>
+            <div class="result-display discount-result" id="currency-result">
+              <div class="discount-row"><span class="discount-label" id="currency-rate-label">1 USD =</span><span class="discount-val" id="currency-rate-val">—</span></div>
+              <div class="discount-row final"><span class="discount-label">Converted</span><span class="discount-val" id="currency-converted">—</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== WORLD CLOCK ====== -->
+      <section class="panel" id="panel-worldclock" aria-label="World Clock">
+        <div class="converter-card converter-card-wide">
+          <h1 class="converter-title">World Clock</h1>
+          <div class="converter-body bmi-body">
+            <div class="input-group">
+              <label for="wc-search">Add a City / Timezone</label>
+              <select id="wc-search" class="converter-select">
+                <option value="">Select a city…</option>
+              </select>
+            </div>
+            <button class="grade-add-btn" id="wc-add">+ Add to Clock</button>
+            <div id="wc-clocks" class="wc-clocks"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== BASE CONVERTER ====== -->
+      <section class="panel" id="panel-base" aria-label="Base Converter">
+        <div class="converter-card">
+          <h1 class="converter-title">Base Converter</h1>
+          <div class="converter-body">
+            <div class="input-group">
+              <label for="base-dec">Decimal (Base 10)</label>
+              <input type="text" id="base-dec" class="converter-input" placeholder="e.g. 42" />
+            </div>
+            <div class="input-group">
+              <label for="base-bin">Binary (Base 2)</label>
+              <input type="text" id="base-bin" class="converter-input" placeholder="e.g. 101010" />
+            </div>
+            <div class="input-group">
+              <label for="base-hex">Hexadecimal (Base 16)</label>
+              <input type="text" id="base-hex" class="converter-input" placeholder="e.g. 2A" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== COMPETITIVE PROGRAMMER ====== -->
+      <section class="panel" id="panel-cp" aria-label="Competitive Programmer Calculator">
+        <div class="calculator-container" style="max-width: 750px; width: 100%;">
+          <div class="display-container cp-display" style="height: 180px; overflow-y: auto; align-items: flex-end; justify-content: flex-start; flex-direction: column-reverse; padding: 12px 20px;">
+            <div class="display-current" id="cp-display-current" style="word-break: break-all; width: 100%; text-align: right;">0</div>
+            <div class="display-expression" id="cp-display-expression" style="margin-top: 8px;"></div>
+          </div>
+          
+          <div style="display: flex; gap: 16px; margin-top: 16px;">
+            <!-- Left side: Functions -->
+            <div class="cp-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); align-content: start; flex: 1.4;">
+              <button class="btn btn-utility" data-action="cp-func" data-value="mex">mex</button>
+              <button class="btn btn-utility" data-action="cp-func" data-value="gcd">gcd</button>
+              <button class="btn btn-utility" data-action="cp-func" data-value="lcm">lcm</button>
+              <button class="btn btn-utility" data-action="cp-func" data-value="isprime">isprime</button>
+              <button class="btn btn-utility" data-action="cp-func" data-value="nextprime">nextp</button>
+              <button class="btn btn-utility" data-action="cp-func" data-value="prevprime">prevp</button>
+              <button class="btn btn-utility" data-action="cp-func" data-value="divisors">divisors</button>
+              <button class="btn btn-utility" data-action="cp-func" data-value="primefactors">p.factors</button>
+            </div>
+            
+            <!-- Right side: Keypad -->
+            <div class="buttons-grid cp-grid" style="flex: 2;">
+              <button class="btn btn-operator" data-action="cp-op" data-value="&">&</button>
+              <button class="btn btn-operator" data-action="cp-op" data-value="|">|</button>
+              <button class="btn btn-operator" data-action="cp-op" data-value="^">^</button>
+              <button class="btn btn-operator" data-action="cp-op" data-value="%">%</button>
+
+              <button class="btn btn-number" data-action="cp-char" data-value="(">(</button>
+              <button class="btn btn-number" data-action="cp-char" data-value=")">)</button>
+              <button class="btn btn-number" data-action="cp-char" data-value=",">,</button>
+              <button class="btn btn-utility" id="cp-btn-del" data-action="cp-del">DEL</button>
+
+              <button class="btn btn-number" data-action="cp-char" data-value="7">7</button>
+              <button class="btn btn-number" data-action="cp-char" data-value="8">8</button>
+              <button class="btn btn-number" data-action="cp-char" data-value="9">9</button>
+              <button class="btn btn-utility" id="cp-btn-ac" data-action="cp-ac">AC</button>
+
+              <button class="btn btn-number" data-action="cp-char" data-value="4">4</button>
+              <button class="btn btn-number" data-action="cp-char" data-value="5">5</button>
+              <button class="btn btn-number" data-action="cp-char" data-value="6">6</button>
+              <button class="btn btn-operator btn-cp-equals" id="cp-btn-equals" data-action="cp-equals" style="grid-row: span 2;">=</button>
+
+              <button class="btn btn-number" data-action="cp-char" data-value="1">1</button>
+              <button class="btn btn-number" data-action="cp-char" data-value="2">2</button>
+              <button class="btn btn-number" data-action="cp-char" data-value="3">3</button>
+
+              <button class="btn btn-number btn-zero" data-action="cp-char" data-value="0" style="grid-column: span 3;">0</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== ALL UNITS CONVERTER ====== -->
+      <section class="panel" id="panel-allunits" aria-label="All Units Converter">
+        <div class="converter-card converter-card-wide" style="max-width: 600px;">
+          <h1 class="converter-title">All Units Converter</h1>
+          <div class="converter-body">
+            <div id="allunits-error" style="display: none; padding: 12px; background: rgba(255, 50, 50, 0.15); color: #ff6b6b; border-left: 3px solid #ff4b4b; border-radius: 6px; font-size: 0.9rem; margin-bottom: 12px;">
+              Error: Select units from the same category to convert.
+            </div>
+
+            <h3 style="margin-top: 0; font-size: 1.1rem; color: var(--text-primary);">From unit</h3>
+            <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 24px;">
+              <select id="allunits-from" class="converter-select" style="flex: 1;"></select>
+              <input type="number" id="allunits-input1" class="converter-input" placeholder="Enter value" style="flex: 1;" />
+            </div>
+
+            <h3 style="margin-top: 0; font-size: 1.1rem; color: var(--text-primary);">To unit</h3>
+            <div style="display: flex; gap: 16px; align-items: center;">
+              <select id="allunits-to" class="converter-select" style="flex: 1;"></select>
+              <input type="number" id="allunits-input2" class="converter-input" placeholder="Result" style="flex: 1;" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
